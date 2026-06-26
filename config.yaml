@@ -1,0 +1,35 @@
+# 物理参数
+physics:
+  rho: 7800.0          # kg/m3
+  cp: 451.0            # J/kg/K
+  r1: 0.06             # m, 内径
+  r2: 0.10             # m, 外径
+  T0: 20.0             # 初始温度
+  T_in: 200.0          # 内壁温度
+  T_out: 20.0          # 外壁温度
+  k_true: 25.96        # W/m/K, 真实导热系数（用于 PDE 损失与最终对比）
+
+# 数据参数
+data:
+  raw_path: "data/abaqus_raw_data.npz"
+  grid_size: 128       # 规则网格分辨率
+  dt: 0.01             # 时间步长
+  train_t_end: 10.0
+  val_t_end: 12.0
+  test_t_end: 15.0
+
+# 模型参数
+model:
+  in_channels: 4       # T, x, y, t
+  out_channels: 1      # T_next
+  base_channels: 64
+
+# 训练参数
+train:
+  epochs: 500
+  batch_size: 8
+  lr: 0.001
+  weight_data: 1.0
+  weight_pde: 0.1
+  device: "cuda"
+  save_dir: "checkpoints"
